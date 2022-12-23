@@ -4,7 +4,7 @@ Tento návod Vás provede vytvořením si jednoduché Android aplikace, která b
 
 ## Slovník pojmů
 
-API - Rozhraní, které server poskytuje pro komunikaci s ním.
+API - Rozhraní, které server poskytuje pro komunikaci s ním.  
 IDE - Vývojové prostředí (Android Studio, Intellij IDEA...)
 
 
