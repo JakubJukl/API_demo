@@ -1,13 +1,12 @@
 # Získávání dat z API v Android aplikaci
 
-Tento návod Vás provede vytvořením si jednoduché Android aplikace, která bude umět získat data z daného API. Tutoriál ukazuje získávání dat z API, které vrací fakty o kočkách.
+Tento návod Vás provede vytvořením jednoduché Android aplikace, která bude umět získat data z daného API. Přesněji budou data získávána z API, které vrací fakty o kočkách.
 
 ## Slovník pojmů
 
 API - Rozhraní, které server poskytuje pro komunikaci s ním.  
-IDE - Vývojové prostředí (Android Studio, Intellij IDEA...)
-
-
+IDE - Vývojové prostředí (Android Studio, Intellij IDEA...)  
+UI - uživatelské rozhraní
 
 ## Klávesové zkratky
 
@@ -15,11 +14,9 @@ IDE - Vývojové prostředí (Android Studio, Intellij IDEA...)
 - Ctrl + Shift + F -> otevře okno pro vyhledávání textu v celém projektu
 - Ctrl + F -> vyhledávání textu v souboru
 
-
-
 ## Aplikace na náhodné kočičí fakty
 
-Jako první si vytvoříte aplikaci na zobrazování náhodných kočičích faktů.
+V následujících kapitolách si vytvoříte aplikaci, která po kliknutí zobrazí nový náhodný fakt o kočkách.
 
 ### Vytvoření aplikace
 
@@ -27,7 +24,7 @@ V libovolném IDE si vytvořte aplikaci s prázdnou aktivitou a počkejte až se
 
 ![progress](tutorial_resources/progress.png)
 
-Mezitím, se můžete rozhodnout, zda budete chtít začít visuálem nebo implementací komunikace s API.
+Mezitím, se můžete rozhodnout, zda budete chtít začít UI nebo implementací komunikace s API.
 
 ### Komunikace s API
 
@@ -112,8 +109,6 @@ data class BreedList(
 }
 ```
 
-
-
 Vraťte se do souboru `CatWebApi`. Když máme připravené datové typy, můžeme si připravit endpointy. 
 
 ```kotlin
@@ -136,8 +131,6 @@ interface CatWebApi {
 ```
 
 `@GET("fact")` určuje, že chceme vznést GET požadavek (https://cs.wikipedia.org/wiki/GET) na endpoint `/fact`. V deklaraci funkce říkáme, že je to asynchronní funkce, předáváme jí proměnnou typu CatRequest a očekáváme odpověď typu CatFact.
-
-
 
 Máme připravené endpointy pro naše požadavky, teď si musíme vytvořit třídu pro zprostředkovávání komunikace s endpointy. Vytvořte si proto třídu `CatWebService`.
 
@@ -191,13 +184,11 @@ class CatWebService (private val dispatcher: CoroutineDispatcher = Dispatchers.I
 }
 ```
 
-V této třídě jsou definovány tři metody. První  metoda, `createCatWebApi`, vytvoří objekt řídící komunikaci s API. Tato metoda se pro `lazy` inicializaci konstanty `api`. Lazy znamená, že k inicializaci dojde až při prvním použití konstanty. 
+V této třídě jsou definovány tři metody. První metoda, `createCatWebApi`, vytvoří objekt řídící komunikaci s API. Tato metoda se pro `lazy` inicializaci konstanty `api`. Lazy znamená, že k inicializaci dojde až při prvním použití konstanty. 
 
 Další dvě metody slouží k volání metod definovaných v interface `CatWebApi`. Kód v bloku `withContext(dispatcher)` může být volán tak, aby neblokoval UI thread, takže aplikace může dál reagovat na uživatelovi požadavky a zároveň čekat na odpověď HTTP požadavku.
 
 V každé této metodě musí být podmínka, jelikož když se Retrofit snaží poslat objekt se všemi argumenty s hodnotou null jako tělo (body) požadavku, vyhodí chybu. Proto také máme vytvořené dvě metody pro každý endpoint, jednu s @Body parametrem a jednu bez něj.
-
-
 
 ### Frontend
 
@@ -265,9 +256,9 @@ Třída `ViewModel`, kterou naše třída `MainActivityViewModel` rozšiřuje, s
 
 Konstanta `displayText` slouží pro uchovávání získaného kočičího faktu. Její datový typ není String, ale MutableLiveData, jelikož tento datový typ posílá vždy při změně novou hodnotu všem odběratelům.
 
-Metoda `getCatFact`  zakládá novou `coroutine` (Kotlin verze threadu nevyužívající zbytečné množství zdrojů), ve které získává kočičí fakt z námi vytvořené servisy a přiřazuje ho do `displayText`.
+Metoda `getCatFact` zakládá novou `coroutine` (Kotlin verze threadu nevyužívající zbytečné množství zdrojů), ve které získává kočičí fakt z námi vytvořené servisy a přiřazuje ho do `displayText`.
 
-Nakonec upravíme třídu `MainActivity`. 
+Nakonec upravte třídu `MainActivity`. 
 
 ```kotlin
 import androidx.appcompat.app.AppCompatActivity
@@ -295,14 +286,10 @@ class MainActivity : AppCompatActivity() {
 
 Zde přidejte konstantu pro `viewModel`. V metodě `onCreate` vytvořte `onClickListener` pro TextView, aby po kliknutí získal náhodný kočičí fakt. Nakonec definujte pozorovatele (observer) proměnné displayText viewModelu, který aktualizuje TextView kdykoli se změní hodnota této proměnné.
 
-
-
 ### Spusťte aplikaci
 
 1) Po kliknutí na TextView by se vám po chvilce měl zobrazit náhodný kočičí fakt. 
 2) V případě, že Vám aplikace spadne opravte chybu a opakujte krok 1).
-
-
 
 ## Možnosti rozšíření
 
