@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">API demo</string>
+    <string name="cat_fact_default">Tap for a random cat fact!</string>
 </resources>
