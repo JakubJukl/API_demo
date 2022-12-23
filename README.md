@@ -25,7 +25,7 @@ Jako první si vytvoříte aplikaci na zobrazování náhodných kočičích fak
 
 V libovolném IDE si vytvořte aplikaci s prázdnou aktivitou a počkejte až se Vám stáhnou Gradle moduly a naindexují se.
 
-![progress](tutorial_resources\progress.png)
+![progress](tutorial_resources/progress.png)
 
 Mezitím, se můžete rozhodnout, zda budete chtít začít visuálem nebo implementací komunikace s API.
 
@@ -59,7 +59,7 @@ V hlavním balíčku (vedle souboru `MainActivity.kt`) si vytvořte nový balí�
 >
 > Najděte si přes dvojitý Shift soubor `MainActivity.kt`, otevřete ho a vlevo v navigaci klikněte na ikonu podobnou terči (Select opened file).
 >
-> ![target](tutorial_resources\target.png)
+> ![target](tutorial_resources/target.png)
 >
 > Tím se Vám soubor zaměří v navigaci, kde klikněte pravým tlačítkem myši na daný soubor  -> New -> Package (pojmenovat `api`). Pak klikněte pravým na nově vytvořený package `api` -> New -> Kotlin Class/File -> Interface (pojmenovat `CatWebApi`).
 
